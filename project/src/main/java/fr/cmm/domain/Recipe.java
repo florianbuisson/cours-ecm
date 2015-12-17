@@ -1,16 +1,15 @@
 package fr.cmm.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class Recipe {
     @Id
