@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <fragments:header/>
+    <fragments:header headerName="recetteMoment" />
 
     <div class="container">
         <h1>Une recette de saison aléatoire</h1>

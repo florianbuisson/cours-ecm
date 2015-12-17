@@ -1,6 +1,7 @@
 <%@ tag body-content="empty" pageEncoding="UTF-8" %>
+<%@ attribute name="headerName" %>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -14,8 +15,8 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/recettes">Toutes les recette</a></li>
-                <li><a href="/recette-du-moment">Recette du moment</a></li>
+                <li class="${headerName=="recettes" ? 'active':''}"><a href="/recettes">Toutes les recettes</a></li>
+                <li class="${headerName=="recetteMoment" ? 'active':''}"><a href="/recette-du-moment">Recette du moment</a></li>
             </ul>
         </div>
     </div>
