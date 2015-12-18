@@ -35,13 +35,10 @@ public class RecipeServiceTest {
     }
 
     @Test
-    public void save() {
-        Recipe recipe = new Recipe();
-        recipe.setTitle("test recipe");
+    void save() {
+        recipeService.save(new Recipe(title: 'test recipe'))
 
-        recipeService.save(recipe);
-
-        Assert.assertEquals("test recipe", recipeCollection.findOne().as(Recipe.class).getTitle());
+        assert recipeCollection.findOne().as(Recipe).title == 'test recipe'
     }
 
     @Test
@@ -55,19 +52,16 @@ public class RecipeServiceTest {
     }
 
     @Test
-    public void findByIdWithInvalidId() {
+    public void 'findById with invalid id'() {
         Assert.assertEquals(null, recipeService.findById("ghsdlgsndlkj"));
     }
 
     @Test
     public void findByQuery() {
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-
-        Assert.assertEquals(5, stream(recipeService.findByQuery(new PageQuery()).spliterator(), false).count());
+        5.times {
+            recipeService.save(new Recipe())
+        }
+        assert recipeService.findByQuery(new PageQuery()).size() == 5;
     }
 
     @Test
@@ -92,11 +86,9 @@ public class RecipeServiceTest {
 
     @Test
     public void findByQueryWithCustomPageSize() {
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
-        recipeService.save(new Recipe());
+        5.times {
+            recipeService.save(new Recipe())
+        }
 
         PageQuery pageQuery = new PageQuery();
         pageQuery.setSize(2);
@@ -120,8 +112,8 @@ public class RecipeServiceTest {
 
     @Test
     public void findAllTags() {
-        recipeService.save(new Recipe().withTags("tag1", "tag2"));
-        recipeService.save(new Recipe().withTags("tag2", "tag3"));
+        recipeService.save(new Recipe(tags: ['tag1', 'tag2']));
+        recipeService.save(new Recipe(tags: ['tag2', 'tag3']));
 
         Assert.assertEquals(asList("tag1", "tag2", "tag3"), recipeService.findAllTags());
     }
