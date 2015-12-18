@@ -32,7 +32,15 @@ public class RecipeService {
     }
 
     public long countByQuery(PageQuery query) {
-        return recipeCollection.count();
+        String mongoQuery = "{}";
+        String[] params = {};
+
+        if (query.getTag() != null && !"".equals(query.getTag())) {
+            mongoQuery = "{tags: #}";
+            params = new String[]{query.getTag()};
+        }
+
+        return recipeCollection.count(mongoQuery, (Object[]) params);
     }
 
     public Iterator<Recipe> findRandom(int count) {
