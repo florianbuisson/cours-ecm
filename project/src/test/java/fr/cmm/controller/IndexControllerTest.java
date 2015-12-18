@@ -62,6 +62,17 @@ public class IndexControllerTest {
                 .andExpect(model().attributeExists("recipe"))
                 .andExpect(view().name("recette"));
     }
+
+    @Test
+    public void recetteVide() throws Exception {
+        String id ="56375619d4c603aa4eb412dd";
+
+        Mockito.when(recipeService.findById(id)).thenReturn(new Recipe());
+
+        mockMvc.perform(get("/recette/" + id))
+                .andExpect(status().is(404));
+    }
+
     @Test
     public void recettesAfterTag() throws Exception {
         PageQuery pageQuery = new PageQuery();
@@ -81,4 +92,5 @@ public class IndexControllerTest {
         mockMvc.perform(get("/recettes?pageIndex=-1"))
                 .andExpect(model().attributeExists("recipes"));
     }
+
 }
