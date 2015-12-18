@@ -44,6 +44,11 @@ public class IndexControllerTest {
         mockMvc.perform(get("/mentions-legales"))
                 .andExpect(view().name("mentions-legales"));
     }
+    @Test
+    public void pageContact() throws Exception {
+        mockMvc.perform(get("/contact"))
+                .andExpect(view().name("contact"));
+    }
 
     @Test
     public void recette() throws Exception {

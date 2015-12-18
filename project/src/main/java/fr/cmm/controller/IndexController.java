@@ -1,19 +1,17 @@
 package fr.cmm.controller;
 
-import javax.inject.Inject;
-
 import fr.cmm.controller.form.SearchForm;
+import fr.cmm.helper.Columns;
 import fr.cmm.helper.PageQuery;
 import fr.cmm.helper.Pagination;
+import fr.cmm.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import fr.cmm.helper.Columns;
-import fr.cmm.service.RecipeService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -77,7 +75,7 @@ public class IndexController {
 
     @RequestMapping("/contact")
     public String contact() {
-        return "contac";
+        return "contact";
     }
 
     @RequestMapping("/mentions-legales")
