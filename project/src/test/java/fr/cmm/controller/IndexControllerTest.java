@@ -67,7 +67,7 @@ public class IndexControllerTest {
     public void recetteVide() throws Exception {
         String id ="56375619d4c603aa4eb412dd";
 
-        Mockito.when(recipeService.findById(id)).thenReturn(new Recipe());
+        Mockito.when(recipeService.findById(id)).thenReturn(null);
 
         mockMvc.perform(get("/recette/" + id))
                 .andExpect(status().is(404));

@@ -73,8 +73,11 @@ public class IndexController {
     @RequestMapping("/recette/{id}")
     public String recette(@PathVariable("id") String id, ModelMap model) {
         model.put("recipe", recipeService.findById(id));
-
-        return "recette";
+        if(recipeService.findById(id) == null) {
+            throw new RessourceNotFoundException();
+        } else {
+            return "recette";
+        }
     }
 
     @RequestMapping("/contact")
