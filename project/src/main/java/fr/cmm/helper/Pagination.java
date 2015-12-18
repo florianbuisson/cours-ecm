@@ -29,7 +29,16 @@ public class Pagination {
     }
 
     public int getPageCount() {
-        return (int) count / pageSize;
+        float a = count / pageSize;
+        if(count % pageSize == 0 ) {
+            if(a==0) {
+                return (int) (a+1);
+            } else {
+                return (int) a;
+            }
+        } else {
+            return (int) a + 1;
+        }
     }
 
     public List<Integer> getPages() {
