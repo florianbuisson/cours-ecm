@@ -14,9 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
-import java.util.Arrays;
-import java.util.stream.StreamSupport;
-
 import static fr.cmm.SpringProfiles.INTEG;
 import static java.util.Arrays.asList;
 import static java.util.stream.StreamSupport.stream;
@@ -55,6 +52,11 @@ public class RecipeServiceTest {
         recipeService.save(recipe);
 
         Assert.assertEquals("test recipe", recipeService.findById(recipe.getId()).getTitle());
+    }
+
+    @Test
+    public void findByIdWithInvalidId() {
+        Assert.assertEquals(null, recipeService.findById("ghsdlgsndlkj"));
     }
 
     @Test
