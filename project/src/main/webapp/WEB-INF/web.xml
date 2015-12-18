@@ -14,9 +14,19 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>fr.cmm.SpringConfig</param-value>
+        <param-value>fr.cmm.SpringConfig, fr.cmm.SpringSecurity</param-value>
     </context-param>
 
+    <!-- Catcher admin -->
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <filter>
         <filter-name>encoding-filter</filter-name>
@@ -52,7 +62,7 @@
     </welcome-file-list>
 
 
-    // erreurs 404
+    <!-- erreurs 404 -->
 
     <!-- Error pages handling -->
     <error-page>
@@ -72,5 +82,7 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/500</url-pattern>
     </servlet-mapping>
+
+
 
 </web-app>
