@@ -89,5 +89,15 @@ public class IndexController {
     public String mentionsLegales() {
         return "mentions-legales";
     }
+
+    @RequestMapping("/404")
+    public String errror404() {
+        return "error";
+    }
+
+    @RequestMapping("/500")
+    public String error500() {
+        return "error";
+    }
 }
 
