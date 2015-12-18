@@ -45,6 +45,9 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile "org.springframework:spring-test:${springVersion}"
 
+    testCompile 'org.seleniumhq.selenium:selenium-java:2.48.2'
+    testCompile 'org.fluentlenium:fluentlenium-core:0.10.3'
+
     compile "org.springframework:spring-web:${springVersion}"
     compile "org.springframework:spring-webmvc:${springVersion}"
 
