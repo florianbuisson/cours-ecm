@@ -35,9 +35,11 @@ public class PaginationTest {
 
     @Test
     public void testGetPages() {
-        Pagination pagination = new Pagination();
-        pagination.setPageSize(5);
-        pagination.setCount(55);
-        assertEquals(pagination.getPages(), asList(1,2,3,4,5,6,7,8,9,10));
+        Pagination pagination2 = new Pagination();
+        pagination2.setPageSize(1);
+        pagination2.setCount(4);
+        pagination2.setPageIndex(1);
+        assertEquals(pagination2.getPages(), asList(1,2,3,4));
+
     }
 }

@@ -44,7 +44,14 @@ public class Pagination {
 
     public List<Integer> getPages() {
         List<Integer> listPages = new ArrayList<>();
-        for(int i=1; i<= Math.min(getPageCount(),PAGINATION_SIZE); i ++) {
+        int maxPage;
+        if(getPageCount() < getPageIndex()+5) {
+            maxPage = getPageCount();
+        } else {
+
+            maxPage = getPageIndex()+5;
+        }
+        for(int i=Math.max(getPageIndex()-4,1); i<=maxPage; i ++) {
             listPages.add(i);
         }
         return listPages;
