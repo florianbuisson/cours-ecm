@@ -1,22 +1,20 @@
-package fr.cmm.service;
+package fr.cmm.service
+import fr.cmm.domain.Recipe
+import fr.cmm.helper.PageQuery
+import org.jongo.MongoCollection
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import fr.cmm.domain.Recipe;
-import fr.cmm.helper.PageQuery;
-import org.jongo.MongoCollection;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import javax.inject.Inject
 
-import javax.inject.Inject;
-
-import static fr.cmm.SpringProfiles.INTEG;
-import static java.util.Arrays.asList;
-import static java.util.stream.StreamSupport.stream;
+import static fr.cmm.SpringProfiles.INTEG
+import static java.util.Arrays.asList
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ImageServiceTestConfig.class)
@@ -53,7 +51,7 @@ public class RecipeServiceTest {
 
     @Test
     public void 'findById with invalid id'() {
-        Assert.assertEquals(null, recipeService.findById("ghsdlgsndlkj"));
+        assert recipeService.findById("ghsdlgsndlkj") == null;
     }
 
     @Test
@@ -81,11 +79,11 @@ public class RecipeServiceTest {
         PageQuery query = new PageQuery();
         query.setTag("alsace");
 
-        Assert.assertEquals(2, recipeService.countByQuery(query));
+        assert recipeService.countByQuery(query) == 2;
     }
 
     @Test
-    public void findByQueryWithCustomPageSize() {
+    public void 'findByQuery with custom page size'() {
         5.times {
             recipeService.save(new Recipe())
         }
@@ -93,11 +91,11 @@ public class RecipeServiceTest {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setSize(2);
 
-        Assert.assertEquals(2, stream(recipeService.findByQuery(pageQuery).spliterator(), false).count());
+        assert recipeService.findByQuery(pageQuery).size() == 2 ;
     }
 
     @Test
-    public void findByQueryWithTag() {
+    public void 'findByQuery with tag'() {
         recipeService.save(new Recipe().withTags("tag1"));
         recipeService.save(new Recipe().withTags("tag1"));
         recipeService.save(new Recipe().withTags("tag2"));
@@ -107,7 +105,7 @@ public class RecipeServiceTest {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setTag("tag1");
 
-        Assert.assertEquals(2, stream(recipeService.findByQuery(pageQuery).spliterator(), false).count());
+        assert recipeService.findByQuery(pageQuery).size() == 2;
     }
 
     @Test
@@ -115,6 +113,6 @@ public class RecipeServiceTest {
         recipeService.save(new Recipe(tags: ['tag1', 'tag2']));
         recipeService.save(new Recipe(tags: ['tag2', 'tag3']));
 
-        Assert.assertEquals(asList("tag1", "tag2", "tag3"), recipeService.findAllTags());
+        assert recipeService.findAllTags() == ["tag1", "tag2", "tag3"];
     }
 }

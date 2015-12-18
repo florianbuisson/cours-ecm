@@ -1,29 +1,27 @@
-package fr.cmm.controller;
+package fr.cmm.controller
+import fr.cmm.controller.form.SearchForm
+import fr.cmm.helper.Columns
+import fr.cmm.helper.PageQuery
+import fr.cmm.helper.Pagination
+import fr.cmm.service.RecipeService
+import org.springframework.stereotype.Controller
+import org.springframework.ui.ModelMap
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 
-import fr.cmm.controller.form.SearchForm;
-import fr.cmm.helper.Columns;
-import fr.cmm.helper.PageQuery;
-import fr.cmm.helper.Pagination;
-import fr.cmm.service.RecipeService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.inject.Inject;
-import java.util.List;
+import javax.inject.Inject
 
 @Controller
 public class IndexController {
     @Inject
     private RecipeService recipeService;
 
-    @RequestMapping({"/index", "/"})
+    @RequestMapping(["/index", "/"])
     public String index(ModelMap model) {
-        model.put("columns", randomColumns());
+        model.columns = randomColumns();
 
-        return "index";
+        "index";
     }
 
     @RequestMapping("/tags.json")
@@ -46,18 +44,18 @@ public class IndexController {
         pagination.setPageSize(pageQuery.getSize());
         pagination.setCount(recipeService.countByQuery(pageQuery));
 
-        model.put("recipes", recipeService.findByQuery(pageQuery));
-        model.put("pagination", pagination);
-        model.put("tagSearch", searchForm);
+        model.recipes = recipeService.findByQuery(pageQuery);
+        model.pagination = pagination;
+        model.tagSearch = searchForm;
 
-        return "recettes";
+        "recettes";
     }
 
     @RequestMapping("/recette-du-moment")
     public String recettesDuMoment(ModelMap model) {
-        model.put("recipe", recipeService.findRandom(1).next());
+        model.recipe = recipeService.findRandom(1).next();
 
-        return "recette-du-moment";
+        "recette-du-moment";
     }
 
     private Columns randomColumns() {
@@ -67,37 +65,37 @@ public class IndexController {
         columns.add(recipeService.findRandom(10));
         columns.add(recipeService.findRandom(10));
 
-        return columns;
+        columns;
     }
 
     @RequestMapping("/recette/{id}")
     public String recette(@PathVariable("id") String id, ModelMap model) {
-        model.put("recipe", recipeService.findById(id));
-        if(recipeService.findById(id) == null) {
+        model.recipe = recipeService.findById(id);
+        if(!recipeService.findById(id)) {
             throw new RessourceNotFoundException();
         } else {
-            return "recette";
+            "recette";
         }
     }
 
     @RequestMapping("/contact")
     public String contact() {
-        return "contact";
+        "contact";
     }
 
     @RequestMapping("/mentions-legales")
     public String mentionsLegales() {
-        return "mentions-legales";
+        "mentions-legales";
     }
 
     @RequestMapping("/404")
     public String errror404() {
-        return "error";
+        "error";
     }
 
     @RequestMapping("/500")
     public String error500() {
-        return "error";
+        "error";
     }
 }
 
