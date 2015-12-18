@@ -63,7 +63,7 @@ public class IndexControllerTest {
                 .andExpect(view().name("recette"));
     }
     @Test
-    public void recettes() throws Exception {
+    public void recettesAfterTag() throws Exception {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setTag("alsace");
 
@@ -72,5 +72,13 @@ public class IndexControllerTest {
                 .andExpect(model().attributeExists("tagSearch"))
                 .andExpect(model().attributeExists("recipes"))
                 .andExpect(view().name("recettes"));
+    }
+
+    @Test
+    public void recettesAfterIndex() throws Exception {
+        PageQuery pageQuery = new PageQuery();
+        Mockito.when(recipeService.findByQuery(pageQuery)).thenReturn(new ArrayList<>());
+        mockMvc.perform(get("/recettes?pageIndex=-1"))
+                .andExpect(model().attributeExists("recipes"));
     }
 }

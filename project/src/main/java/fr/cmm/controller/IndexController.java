@@ -37,6 +37,9 @@ public class IndexController {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setIndex(searchForm.getPageIndex() - 1);
         pageQuery.setTag(searchForm.getTag());
+        if(pageQuery.getIndex()<0){
+            pageQuery.setIndex(0);
+        }
 
         Pagination pagination = new Pagination();
         pagination.setPageIndex(searchForm.getPageIndex());
